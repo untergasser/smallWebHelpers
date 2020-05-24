@@ -12,7 +12,7 @@ function init(){
     Nexus.context = context;
     gain = context.createGain();
     gain.connect(context.destination);
-    gain.gain.value=1.0;
+    gain.gain.value=0.9;
 
     var oscilloscope = new Nexus.Oscilloscope('#oscilloscope');
     oscilloscope.connect(gain);
@@ -72,7 +72,7 @@ function startTone(){
     osc.start();
     
     gain.gain.cancelScheduledValues(0);
-    gain.gain.setValueAtTime(1.0, now);
+    gain.gain.setValueAtTime(0.9, now);
 }
 
 function stopTone(){
