@@ -1,0 +1,55 @@
+<html>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Frequency Generator</title>
+
+    <link rel="stylesheet" href="main.css">
+    <link rel="icon" href="favicon.ico">
+    <link rel="canonical" href="https://rdml.org/">
+  <head>
+    <script src="../libs/nexusui/NexusUI.js"></script>
+    <script src="frequencyGenerator.js"></script>
+  </head>
+  <body>
+    <h1>Frequency Generator</h1>
+    <div style="display:flex;flex-direction:row">
+      <div>
+          <div class="title" style="width:320;">
+              <div class="titlebox">Frequency</div>
+              <input type="text" id="nr-frequency" size="30" style="text-align:right;"> Hz
+          </div>
+          <div class="title" style="width:320;">
+              <div class="titlebox">Oscilloscope</div>
+              <div id="oscilloscope"></div>
+          </div>
+      </div>
+      <div>
+        <div class="title" style="width:100;">
+            <div class="titlebox">Waveform</div>
+            <div id="select"></div>
+        </div>
+        <div class="title" style="width:100;">
+            <div class="titlebox">On/Off</div>
+            <div id="power-button" class="button"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div id="footer" style="clear: both;font-size: 0.9em;margin-left: 5;margin-right: 5;margin-top: 5;margin-bottom: 5;min-width: 16em;padding: 0.5em;text-align: center;background-color: #ffffff;border: 1px solid black;">
+      <a>&copy; by A. Untergasser</a>
+      &nbsp;&nbsp;:&nbsp;&nbsp;
+      <a href="../index.html">Home</a>
+      &nbsp;&nbsp;:&nbsp;&nbsp;
+      <a href="../legal/impressum.html">Impressum</a>
+      &nbsp;&nbsp;:&nbsp;&nbsp;
+      <a href="../legal/privacy.html">Privacy Policy</a>
+    </div>
+    <script>
+      window.onload = function () { 
+          init();
+    }
+    </script>
+  </body>
+</html>
