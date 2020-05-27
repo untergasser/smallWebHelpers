@@ -26,6 +26,16 @@ h4 {
   padding-bottom: 1em;
 }
 
+#my-central-space {
+  margin-top: 2em;
+}
+
+.my-center-it {
+  width: 50%;
+  text-align:center;
+  margin: 0 auto;
+}
+
 #my-center {
   margin-top: 1em;
   margin-bottom: 1em;
