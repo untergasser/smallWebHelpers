@@ -9,7 +9,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function startup() {
     var ret = "";
-    var search = JSON.parse('{"' + decodeURI(window.location.search).replace(/\?/g, '').replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');
+    var search = {};
+
+    var curAddress = decodeURI(window.location.search);
+
+    if (curAddress.includes("?")) {
+        search = JSON.parse('{"' + curAddress.replace(/\?/g, '').replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');
+    }
 
     if (search.hasOwnProperty("datetime") && search.hasOwnProperty("title")) {
         ret += '<div class="my-center-it">\n';
