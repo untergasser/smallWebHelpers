@@ -18,10 +18,19 @@ function startup() {
     }
 
     if (search.hasOwnProperty("datetime") && search.hasOwnProperty("title")) {
-        ret += '<div class="my-center-it">\n';
-        ret += "<h2>" + search["title"] + "</h2>\n<br />\n"
-        ret += '<h3 id="countDown"></h3>\n'
-        ret += "</div>\n"
+        ret += '    <div class="my-center-it">\n';
+        ret += "      <h2>" + search["title"] + "</h2>\n<br />\n"
+        ret += '      <h3 id="countDown"></h3>\n'
+        ret += "<br /><br /><br /><br /><br />";
+        ret += '      <p>\n';
+        ret += '        <a id="finalLink" target="_blank" href="' + window.location.href.split('?')[0];
+        if (document.documentElement.lang == "de") {
+            ret += '">Erstelle neuen Countdown</a>\n';
+        } else {
+            ret += '">Create New Countdown</a>\n';
+        }
+        ret += '      </p>\n';
+        ret += '    </div>\n';
         ret += footer();
         centerPage.innerHTML = ret;
 
@@ -33,27 +42,52 @@ function startup() {
         updateCountdown();
     } else {
         var newYear = new Date().getFullYear() + 1;
-        ret += "<h2>Set the Countdown</h2>\n"
-        ret += '    <div class="form-group">\n';
-        ret += '      <label for="inTitle">Countdown Title</label>\n';
-        ret += '      <input type="text" class="form-control" id="inTitle" onchange="updateLink();" value="Countdown till New Year">\n';
-        ret += '    </div>\n';
-        ret += '    <div class="form-group">\n';
-        ret += '      <label for="inDate">Date</label>\n';
-        ret += '      <input type="date" class="form-control" id="inDate" onchange="updateLink();" value="' + newYear + '-01-01">\n';
-        ret += '    </div>\n';
-        ret += '    <div class="form-group">\n';
-        ret += '      <label for="inTime">Time</label>\n';
-        ret += '      <input type="time" class="form-control" id="inTime" onchange="updateLink();" value="00:00">\n';
-        ret += '    </div>\n';
-        ret += '    <div class="form-group">\n';
-        ret += '      <label for="inSec">Seconds</label>\n';
-        ret += '      <input type="text" class="form-control" id="inSec" onchange="updateLink();" value="00">\n';
-        ret += '    </div>\n';
+        if (document.documentElement.lang == "de") {
+            ret += "<h2>Erstelle neuen Countdown</h2>\n"
+            ret += '    <div class="form-group">\n';
+            ret += '      <label for="inTitle">Countdown Titel</label>\n';
+            ret += '      <input type="text" class="form-control" id="inTitle" onchange="updateLink();" value="Countdown bis Neujahr">\n';
+            ret += '    </div>\n';
+            ret += '    <div class="form-group">\n';
+            ret += '      <label for="inDate">Datum</label>\n';
+            ret += '      <input type="date" class="form-control" id="inDate" onchange="updateLink();" value="' + newYear + '-01-01">\n';
+            ret += '    </div>\n';
+            ret += '    <div class="form-group">\n';
+            ret += '      <label for="inTime">Uhrzeit</label>\n';
+            ret += '      <input type="time" class="form-control" id="inTime" onchange="updateLink();" value="00:00">\n';
+            ret += '    </div>\n';
+            ret += '    <div class="form-group">\n';
+            ret += '      <label for="inSec">Sekunden</label>\n';
+            ret += '      <input type="text" class="form-control" id="inSec" onchange="updateLink();" value="00">\n';
+            ret += '    </div>\n';
 
-        ret += '    <div class="form-group">\n';
-        ret += '      <p>Below is the link to the timer. It may be saved and shared to access the timer later.<br />\n';
-        ret += '        Click to open the created timer:<br />\n';
+            ret += '    <div class="form-group">\n';
+            ret += '      <p>Hier ist der Link zum Countdown. Er kann gespeichert und geteilt werden, um den Countdown sp&auml;ter aufzurufen.<br />\n';
+            ret += '        Zum &Ouml;ffnen des Countdowns bitte anklicken:<br />\n';
+
+        } else {
+            ret += "<h2>Create New Countdown</h2>\n"
+            ret += '    <div class="form-group">\n';
+            ret += '      <label for="inTitle">Countdown Title</label>\n';
+            ret += '      <input type="text" class="form-control" id="inTitle" onchange="updateLink();" value="Countdown till New Year">\n';
+            ret += '    </div>\n';
+            ret += '    <div class="form-group">\n';
+            ret += '      <label for="inDate">Date</label>\n';
+            ret += '      <input type="date" class="form-control" id="inDate" onchange="updateLink();" value="' + newYear + '-01-01">\n';
+            ret += '    </div>\n';
+            ret += '    <div class="form-group">\n';
+            ret += '      <label for="inTime">Time</label>\n';
+            ret += '      <input type="time" class="form-control" id="inTime" onchange="updateLink();" value="00:00">\n';
+            ret += '    </div>\n';
+            ret += '    <div class="form-group">\n';
+            ret += '      <label for="inSec">Seconds</label>\n';
+            ret += '      <input type="text" class="form-control" id="inSec" onchange="updateLink();" value="00">\n';
+            ret += '    </div>\n';
+
+            ret += '    <div class="form-group">\n';
+            ret += '      <p>Below is the link to the timer. It may be saved and shared to access the timer later.<br />\n';
+            ret += '        Click to open the created timer:<br />\n';
+        }
         ret += '        <a id="finalLink" target="_blank" href="index.html">Not updated yet</a>\n';
         ret += '      </p>\n';
         ret += '    </div>\n';
@@ -80,7 +114,13 @@ function updateCountdown() {
 
     if (distance < 0) {
         clearInterval(x);
-        document.getElementById("countDown").innerHTML = "EXPIRED";
+        var context = new (window.AudioContext || window.webkitAudioContext)();
+        beep_alarm();
+        if (document.documentElement.lang == "de") {
+            document.getElementById("countDown").innerHTML = "ABGELAUFEN";
+        } else {
+            document.getElementById("countDown").innerHTML = "EXPIRED";
+        }
     }
 }
 
@@ -105,7 +145,7 @@ function updateLink() {
 
 
 function footer() {
-    var ret = "<br /><br /><br /><br /><br /><br /><br /><br /><br />";
+    var ret = "<br /><br /><br /><br />";
     ret += '   <div class="title my-center-it" style="width:320;">\n';
     ret += '         <div class="titlebox">&copy; by A. Untergasser</div>\n';
     ret += '         <div style="padding-top:10px;">\n';
@@ -118,4 +158,30 @@ function footer() {
     ret += '     </div>\n';
 
     return ret;
+}
+
+function beep_alarm() {
+    beep_sequence()
+    setTimeout(beep_alarm, 700);
+}
+
+function beep_sequence() {
+    beep()
+    setTimeout(beep, 110);
+    setTimeout(beep, 220);
+    setTimeout(beep, 330);
+}
+
+function beep() {
+    var oscillator = context.createOscillator();
+    var gain = context.createGain();
+    oscillator.connect(gain);
+    gain.connect(context.destination);
+    var now = context.currentTime;
+    oscillator.frequency.setValueAtTime(660, now);
+    oscillator.type = "square";
+    gain.gain.setValueAtTime(1.0, now);
+
+    oscillator.start(now+0.04);
+    oscillator.stop(now+0.1);
 }
