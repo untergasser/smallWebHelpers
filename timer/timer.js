@@ -36,7 +36,7 @@ function startup() {
 
 
         var b = search["datetime"].split(/\D+/);
-        window.countDownDate = new Date(Date.UTC(b[0], b[1], b[2], b[3], b[4], b[5], b[6]));
+        window.countDownDate = new Date(Date.UTC(b[0], --b[1], b[2], b[3], b[4], b[5], b[6]));
 
         window.timer = setInterval(updateCountdown, 1000);
         updateCountdown();
@@ -114,7 +114,7 @@ function updateCountdown() {
 
     if (distance < 0) {
         clearInterval(window.timer);
-        var context = new (window.AudioContext || window.webkitAudioContext)();
+        window.context = new (window.AudioContext || window.webkitAudioContext)();
         beep_alarm();
         if (document.documentElement.lang == "de") {
             document.getElementById("countDown").innerHTML = "ABGELAUFEN";
@@ -134,7 +134,7 @@ function updateLink() {
     var cSec = document.getElementById('inSec').value;
 
     var date = new Date(cDate[0], cDate[1], cDate[2], cTime[0], cTime[1], cSec);
-    var dateUTC =  Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),
+    var dateUTC =  Date.UTC(date.getUTCFullYear(), date.getUTCMonth() - 1, date.getUTCDate(),
                             date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
     var outDate = new Date(dateUTC);
 
@@ -173,6 +173,7 @@ function beep_sequence() {
 }
 
 function beep() {
+    var context = window.context;
     var oscillator = context.createOscillator();
     var gain = context.createGain();
     oscillator.connect(gain);
