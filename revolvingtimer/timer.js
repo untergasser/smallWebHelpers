@@ -1,5 +1,7 @@
 
 window.running = false;
+window.twoBeep = true;
+window.oneBeep = true;
 window.context = new (window.AudioContext || window.webkitAudioContext)();
 const centerPage = document.getElementById('my-central-space');
 
@@ -90,15 +92,20 @@ function updateStopwatch() {
     var now = new Date().getTime();
     var distance = window.startTime - now;
 
-    if ((distance < 2000) && (distance > 1900)) {
+    if ((distance < 2000) && window.twoBeep) {
+        window.twoBeep = false;
+
         beep_short();
     }
-    if ((distance < 1000) && (distance > 900)) {
+    if ((distance < 1000) && window.oneBeep) {
+        window.oneBeep = false;
         beep_short();
     }
     if (distance < 0) {
         window.startTime += addTime();
         distance = window.startTime - now;
+        window.twoBeep = true;
+        window.oneBeep = true;
         beep_long();
     }
 
