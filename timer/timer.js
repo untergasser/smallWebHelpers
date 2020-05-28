@@ -36,9 +36,9 @@ function startup() {
 
 
         var b = search["datetime"].split(/\D+/);
-        window.countDownDate = new Date(Date.UTC(b[0], --b[1], b[2], b[3], b[4], b[5], b[6]));
+        window.countDownDate = new Date(Date.UTC(b[0], b[1], b[2], b[3], b[4], b[5], b[6]));
 
-        var x = setInterval(updateCountdown, 1000);
+        window.timer = setInterval(updateCountdown, 1000);
         updateCountdown();
     } else {
         var newYear = new Date().getFullYear() + 1;
@@ -113,7 +113,7 @@ function updateCountdown() {
     document.getElementById("countDown").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
 
     if (distance < 0) {
-        clearInterval(x);
+        clearInterval(window.timer);
         var context = new (window.AudioContext || window.webkitAudioContext)();
         beep_alarm();
         if (document.documentElement.lang == "de") {
