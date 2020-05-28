@@ -141,7 +141,7 @@ function beep_long() {
     gain.gain.setValueAtTime(1.0, now);
 
     oscillator.start();
-    oscillator.stop(now + 0.6);
+    oscillator.stop(now + 0.8);
 }
 
 function beep_short() {
